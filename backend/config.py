@@ -38,13 +38,22 @@ class Settings:
     RESET_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("RESET_TOKEN_EXPIRE_MINUTES", "30"))
     
     # CORS Configuration
+        # CORS Configuration
+    FRONTEND_URL: str = os.getenv("FRONTEND_URL", "").strip()
+
     CORS_ORIGINS: list[str] = [
         "http://localhost:5173",
         "http://localhost:5174",
         "http://127.0.0.1:5173",
         "http://127.0.0.1:5174",
     ]
-    
+
+    if FRONTEND_URL:
+        CORS_ORIGINS.extend(
+            url.strip().rstrip("/")
+            for url in FRONTEND_URL.split(",")
+            if url.strip()
+        )
     # Optional SMTP configuration
     SMTP_HOST: str = os.getenv("SMTP_HOST", "")
     SMTP_PORT: int = int(os.getenv("SMTP_PORT", "587"))
