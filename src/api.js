@@ -4,7 +4,7 @@ import axios from 'axios';
 // (configured in vite.config.js: /api → http://127.0.0.1:8000).
 // This prevents CORS preflight issues and ERR_CONNECTION_REFUSED errors in dev.
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '/api',
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
